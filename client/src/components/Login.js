@@ -26,7 +26,7 @@ function Login(props) {
       let strinDt=validateUserCredential(username,pasword)
 
       if(strinDt===true){
-        alert('logged In')
+//         alert('logged In')
                 handleUsername(username)
                 handleLogin(true)
                 history.push('/Dashboard')
