@@ -21,9 +21,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
     
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
+//   app.get('*', function(req, res) {
+//     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+//   });
 }
 app.post('/api/savePost',function (req, res) {
 
@@ -102,6 +102,7 @@ app.get('/api/getComment',function (req, res) {
             fs.readFile(path.resolve(__dirname, 'posts.json'), function (err, data) {
               
                 let json = JSON.parse(data)
+               
               
                 
              
@@ -125,6 +126,8 @@ app.get('/api/getAllPosts',function (req, res) {
             fs.readFile(path.resolve(__dirname, 'posts.json'), function (err, data) {
               
                 let json = JSON.parse(data)
+                
+                 console.log("json from getAllPosts",json)
               
                 // json.data.push(modelObject)
                 res.send(json.data);
