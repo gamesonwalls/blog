@@ -23,7 +23,7 @@ function useProviderLogin () {
 
   //method on count object that allows changing of them 
   const handleLogin = () => {
-    setLogin(false)
+    setLogin(true)
     console.log("user login",isLogin)
   }
 
