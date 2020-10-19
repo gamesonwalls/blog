@@ -68,7 +68,7 @@ function Home() {
   }
   function getAllPosts(){
    
-    axios.get('http://localhost:5000/api/getAllPosts/')
+    axios.get('/api/getAllPosts/')
     .then(response => {
         // console.log(response.data[0].content["blocks"][0].text);
        
