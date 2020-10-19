@@ -47,7 +47,7 @@ function Dashboard () {
 
     let post_title=document.getElementById('post_title').value;
 
-        axios.post('http://localhost:5000/api/savePost/',{post_title:post_title,content:editorContent})
+        axios.post('/api/savePost/',{post_title:post_title,content:editorContent})
         .then(response => {
             console.log(response);
             if(response.data==='Updated'){
@@ -64,7 +64,7 @@ function Dashboard () {
 
   function getAllPosts(){
    
-    axios.get('http://localhost:5000/api/getAllPosts/')
+    axios.get('/api/getAllPosts/')
     .then(response => {
         console.log(response);
         setallPosts(response.data)
