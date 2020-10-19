@@ -44,7 +44,7 @@ function Article(props) {
 function saveComment(e){
     e.preventDefault()
     let commentsInfield=document.getElementById('commentsInfield').value;
-    axios.post('http://localhost:5000/api/saveComment',{id:props.location.state['data'].id,comment:commentsInfield})
+    axios.post('/api/saveComment',{id:props.location.state['data'].id,comment:commentsInfield})
     .then(response => {
         
      console.log("getGroups",response.data)
@@ -65,7 +65,7 @@ function saveComment(e){
 function getAllComments(){
        
 
-        axios.get('http://localhost:5000/api/getComment',{
+        axios.get('/api/getComment',{
             params:{
             id:props.location.state['data'].id
         }
