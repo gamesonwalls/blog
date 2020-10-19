@@ -26,12 +26,9 @@ function Login(props) {
       let strinDt=validateUserCredential(username,pasword)
 
       if(strinDt===true){
-       // alert('logged In')
+        alert('logged In')
                 handleUsername(username)
                 handleLogin(true)
-                //$.noConflict();
-                //props.setVisible(false)  
-                
                 history.push('/Dashboard')
       }else{
         $("#checker").fadeIn(100).delay(3000).fadeOut(2000)
@@ -42,6 +39,7 @@ function Login(props) {
   function validateUserCredential(username,password){
 
    // let users= JSON.parse(localStorage.getItem('users'));
+    console.log("users in json file",users)
           let checker= users.some((arrVal)=> { 
               return username === arrVal.username && password ===arrVal.password; 
           });
