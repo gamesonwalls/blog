@@ -14,11 +14,9 @@ import LoginContext from './context/LoginContext';
 import RightSidebar from './RightSidebar';
 import NavBar from './NavBar';
 
-import FirstImage from '../assets/img/featured-guitarman.jpg'
-import SecondImage from '../assets/img/featured-beetle.jpg'
 
 
-import ArticleImage from '../assets/img/lamp-400.jpg'
+
 import Footer from './Footer';
 
 
