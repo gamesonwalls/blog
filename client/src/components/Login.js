@@ -26,9 +26,12 @@ function Login(props) {
       let strinDt=validateUserCredential(username,pasword)
 
       if(strinDt===true){
-//         alert('logged In')
+       alert('logged In')
                 handleUsername(username)
-                handleLogin(true)
+                handleLogin()
+                //$.noConflict();
+                //props.setVisible(false)  
+                
                 history.push('/Dashboard')
       }else{
         $("#checker").fadeIn(100).delay(3000).fadeOut(2000)
@@ -39,7 +42,6 @@ function Login(props) {
   function validateUserCredential(username,password){
 
    // let users= JSON.parse(localStorage.getItem('users'));
-    console.log("users in json file",users)
           let checker= users.some((arrVal)=> { 
               return username === arrVal.username && password ===arrVal.password; 
           });
@@ -51,27 +53,33 @@ function Login(props) {
  
     
       <div style={{backgroundColor:'#f4f3ef'}}>
+
+      <div  style={{backgroundImage: `url(https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&w=1000&q=80)`, backgroundSize: "cover",backgroundPosition: "top center",height: "100vh",}}>
+
             <div className="col-md-4" ></div>
       
-            <div className="col-md-4 card" style={{ top: "12em",padding:38}}>
+            <div className="col-md-4 card" style={{ top: "8em",padding:38, backgroundColor:'#ffffffdb'}}>
+              <div style={{backgroundColor:'#2f2e2e'}}><img src="images/logo.png" alt="Homepage" className="img-responsive center-block" style={{width: 400,height: 76}}/></div>
+                <hr/>
               <div className="">
                 
 
-                
+
                       <form  onSubmit={userLogin}>
+
                             <div className="">
-                            <div id="checker" className="col-md-12" style={{display:'none'}} >
+                            <div id="checker"  style={{display:'none'}} >
                                   <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                   <span aria-hidden="true">Username or password mismatch</span>
                                 </button>
                             </div>
                             <label>Username</label>
-                              <input type="text" className="form-control" id="username" placeholder="username"/>
+                              <input type="text" className="form-control" id="username" placeholder="Enter Username here"/>
                               
                             </div>
                             <div className="">
                               <label >Password</label>
-                              <input type="password" className="form-control" id="password" placeholder="password"/>
+                              <input type="password" className="form-control" id="password" placeholder="Enter Password here"/>
                             </div>
                           
                             <div className="form-group" style={{marginTop:10,marginBottom:'3em'}}>
@@ -82,7 +90,7 @@ function Login(props) {
               </div>
             </div>
             <div className="col-md-4" ></div>
-
+      </div>
       </div>
   );
 }
