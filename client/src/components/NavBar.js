@@ -38,8 +38,13 @@ function NavBar() {
 
                       <a className="header__search-trigger" href="#0"></a>
 
-                      <div className="header__search">
+                     
+                     
+                      
+                      
 
+                      <div className="header__search">
+                      
                           <form role="search" method="get" className="header__search-form" action="#">
                               <label>
                                   <span className="hide-content">Search for:</span>
@@ -49,8 +54,12 @@ function NavBar() {
                           </form>
               
                           <a href="#0" title="Close Search" className="header__overlay-close">Close</a>
-                        
-                      </div> 
+                      
+                      </div>
+
+                      
+
+                       
 
 
                       <a className="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
@@ -84,6 +93,13 @@ function NavBar() {
                               <li><a href="style-guide.html" title="">Styles</a></li>
                               <li><a href="about.html" title="">About</a></li>
                               <li><a href="contact.html" title="">Contact</a></li>
+                              <li>
+                                    <a  title="">
+                                    <Link to="/Login">Login</Link> 
+                                    </a>
+                              </li>
+
+                           
                           </ul>
 
                           <a href="#0" title="Close Menu" className="header__overlay-close close-mobile-menu">Close</a>
