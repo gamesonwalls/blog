@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import NavBar from './NavBar'
+import LoginNavbar from './LoginNavbar'
 import axios from 'axios'
 
 import { BiEdit,BiTrash } from 'react-icons/bi';
@@ -19,6 +19,11 @@ function Dashboard () {
   const [editallPosts,seteditallPosts]=useState([])
 
   const {isLogin}=useLogin()
+  if(isLogin===true){
+      
+  }else{
+    history.push('/Login')
+  }
 
   useEffect(() => {
     getAllPosts()
@@ -46,8 +51,12 @@ function Dashboard () {
     e.preventDefault()
 
     let post_title=document.getElementById('post_title').value;
+    let category=document.getElementById('category').value;
+    let img_url=document.getElementById('img_url').value;
 
-        axios.post('/api/savePost/',{post_title:post_title,content:editorContent})
+    
+
+        axios.post('/api/savePost/',{post_title:post_title,category:category,img_url:img_url,content:editorContent})
         .then(response => {
             console.log(response);
             if(response.data==='Updated'){
@@ -87,13 +96,13 @@ function Dashboard () {
   
     return(
         <div style={{backgroundColor:'#f4f3ef',height:'100vh'}} id="textcontent">
-        <NavBar/>
-    <div className="row" style={{backgroundColor:'#f4f3ef'}}>   
-        <div className="col-md-3" style={{padding:0}}>
+        <LoginNavbar/>
+    <div className="" style={{backgroundColor:'#f4f3ef'}}>   
+        <div className="col-md-2" style={{padding:0}}>
          </div>
-        <div className="col-md-6" style={{padding:0}}>
+        <div className="col-md-8" style={{padding:0}}>
         <div className="">
-            <div className="card card-user">
+            <div className="card card-user" style={{backgroundColor:'white',padding:18}}>
               <div className="card-header">
                 <h5 className="card-title">Add a Post</h5>
               </div>
@@ -107,6 +116,28 @@ function Dashboard () {
                         <input type="text" className="form-control" placeholder="Title here" id="post_title" required/>
                       </div>
                     </div>
+
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Category</label>
+                        <select className="form-control" id="category" style={{height: "55px"}}>
+                          <option>Music</option>
+                          <option>Technology</option>
+                          <option>Food</option>
+                          <option>Cars</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Image Url</label>
+                        <input type="text" className="form-control" placeholder="Image Link" id="img_url" required/>
+
+                      </div>
+                    </div>
+
+                    
                   </div>
 
                   <div className="row">
@@ -128,7 +159,7 @@ function Dashboard () {
                   
                   <div className="row">
                     <div className="update ml-auto mr-auto text-center" >
-                      <button type="submit" className="btn btn-primary btn-round">Add Post</button>
+                      <button type="submit" className="btn btn-primary btn-round" style={{marginTop:10,width:'50%'}}>Add Post</button>
                     </div>
                   </div>
                 </form>
@@ -136,7 +167,7 @@ function Dashboard () {
             </div>
           </div>  
 
-            <div className="card" style={{marginBottom:10,padding:10}}>
+            <div className="card" style={{marginBottom:10,padding:10,backgroundColor:'white'}}>
             <h2 className="text-center">All Posts</h2>
             <hr/>
               <table className="table table-striped">
@@ -158,7 +189,7 @@ function Dashboard () {
             </div>
         
         </div>
-        <div className="col-md-3" style={{padding:0}}>
+        <div className="col-md-2" style={{padding:0}}>
         
         </div>
       </div>
