@@ -18,7 +18,7 @@ import { BrowserRouter as Router, Switch, Route, Link,Redirect } from 'react-rou
 
 function App() {
   return (
-    <div className="row">
+    <div className="">
         
         <Router>
 
