@@ -12,14 +12,25 @@
   --twitter: #00acee;
   --linkedin: #0077b5;
   --sendIcon: #868fa2;
+  --otherContent : #efefef;
+  --otherContentTop : #2D2D2D;
+
 }
 
-/* elements that change color */
+
 h1{
   font-weight: 800; 
   color: var(--text);
   font-family: 'Museo Sans W01', helvetica, arial, sans-serif;
   
+}
+h4{
+  color: var(--text);
+ 
+}
+
+#downBackground{
+  background-color: var(--otherContent);
 }
 
 p { 
@@ -48,12 +59,12 @@ h3{
   color: var(--textAlt);
 }
 
-/* Transitons for smooth theme change */
+
 *:not(body) {
   transition: all .5s ease;
 }
 
-/* All other styles */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -129,6 +140,14 @@ code {
   margin-bottom: 0.5em;
   color: var(--text);
 }
+#content{
+  font-size: 1.5em;
+  text-align:justify;
+  margin-bottom: 0.5em;
+  color: var(--text);
+  font-family: 'Museo Sans W01', helvetica, arial, sans-serif
+}
+
 b{
   color: var(--text);
 }
@@ -149,6 +168,10 @@ button {
   color:var(--facebook);
   
 }
+.cardBackground{
+  background:var(--text)
+}
+
 
 .twitter{
   color:var(--twitter);
@@ -204,16 +227,16 @@ button {
   } */
 }
 
-/* .card {
+.card {
   border-radius: 12px;
   box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
-  background-color: #FFFFFF;
+  background-color: var(--cardBackground);
   color: #252422;
   margin-bottom: 20px;
   position: relative;
   border: 0 none;
   transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-} */
+}
 
 /*  Comment Box UI */
 
@@ -457,9 +480,7 @@ ul {
     border-radius: 3px;
 }
 
-/** =====================
- * Responsive
- ========================*/
+
 @media only screen and (max-width: 766px) {
     .comments-container {
         width: 480px;
