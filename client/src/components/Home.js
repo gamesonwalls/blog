@@ -13,6 +13,18 @@ import LoginContext from './context/LoginContext';
 
 import RightSidebar from './RightSidebar';
 import NavBar from './NavBar';
+
+import FirstImage from '../assets/img/featured-guitarman.jpg'
+import SecondImage from '../assets/img/featured-beetle.jpg'
+
+
+import ArticleImage from '../assets/img/lamp-400.jpg'
+import Footer from './Footer';
+
+
+import userProfile from '../assets/img/pic.jpg'
+import Switch from './Switch'
+import Switchbutton from './Switch';
 // var fs =require('fs');
 let storageArray=[]
 
@@ -35,6 +47,9 @@ function Home() {
   const [visible3,setVisible3]=useState(false);
   const [articles,setArticles]=useState([])
 
+  const [firstArticle,setfirstArticle]=useState([])
+  const [secondThirdArticle,setsecondThirdArticle]=useState([])
+  const [otherArticles,setotherArticles]=useState([])
 
   // const [userSearch,setuserSearch]=useState('Search with a City or Country')
  
@@ -66,44 +81,150 @@ function Home() {
   function urlCleaner(title){
    return title.replace(/\s+/g, '-').toLowerCase();
   }
+
+
   function getAllPosts(){
    
     axios.get('/api/getAllPosts/')
     .then(response => {
-        // console.log(response.data[0].content["blocks"][0].text);
+        console.log("from post",response.data);
        
 
+      
        let returnData= response.data.map((r,index)=>{
 
          let descriptionTrunc=truncateString(r.content["blocks"][0].text,120);
          let cleanedUrl=urlCleaner(r.post_title)
-        //  let titleUrl='/'+truncateString(r.content["blocks"][0].post_title,60);
+    
+          if(index===0){
+            return <div className="featured__column featured__column--big">
+            <div className="entry" style={{backgroundImage: `url(${r.img_url})`}}>
+                
+                <div className="entry__content">
+                    <span className="entry__category"><a href="#0">{r.category}</a></span>
 
-            return  <div id={"Article"+index} key={index}>
-                      <h1>
-                      <Link  to={{
-                                pathname: cleanedUrl,
-                                state: {
-                                  data: r
-                                }
-                              }}>
-                      {r.post_title}
-                      </Link>
-                      
-                      </h1>
-                      <div id="textcontent">{descriptionTrunc}</div>
-                        <hr style={{width: 134,position: 'absolute'}}/>
-                            <div>
-                            <div><b>Share it</b></div>
-                                <Facebook style={{fontSize:'3em'}}className={`icon ${!dark ? 'facebook' : ''}`}/>
-                                <Twitter style={{fontSize:'3em'}}className={`icon ${!dark ? 'twitter' : ''}`}/>
-                                <LinkedIn style={{fontSize:'3em'}}className={`icon ${!dark ? 'linkedin' : ''}`}/>
-                            </div>
-                        
-                        <hr/>
-                  </div>
+                  
+                    <h1><a href="#0" title="">
+                        <Link  to={{
+                                    pathname: cleanedUrl,
+                                    state: {
+                                      data: r
+                                    }
+                                  }}>
+                          {r.post_title}
+                          </Link>
+                      </a>
+                    </h1>
+
+                    <div className="entry__info">
+                        <a href="#0" className="entry__profile-pic">
+                            <img className="avatar" src={userProfile} alt=""/>
+                        </a>
+
+                        <ul className="entry__meta">
+                            <li><a href="#0">Eturu Stephen</a></li>
+                            <li>21 October, 2020</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+
+        }
+            
         })
-       setArticles(returnData)
+       setfirstArticle(returnData)
+
+      // let images=['','https://www.theafricareport.com/media/2020/10/RTX82HPS.jpg','https://www.gardentech.com/-/media/Images/GardenTech-NA/US/blog/How-to-Grow-Your-Own-Tasty-Strawberries/Strawberries-Header-OG.jpg']
+       let returnData2= response.data.map((r,index)=>{
+
+        let descriptionTrunc=truncateString(r.content["blocks"][0].text,120);
+        let cleanedUrl=urlCleaner(r.post_title)
+   
+         if(index===1 || index===2 ){
+           return <div className="entry" style={{backgroundImage: `url(${r.img_url})`}} >
+                                      
+                    <div className="entry__content">
+                        <span className="entry__category"><a href="#0">{r.category}</a></span>
+
+                        <h1><a href="#0" title="">
+                            <Link  to={{
+                                        pathname: cleanedUrl,
+                                        state: {
+                                          data: r
+                                        }
+                                      }}>
+                              {r.post_title}
+                              </Link>
+                            </a>
+                        </h1>
+
+                            <div className="entry__info">
+                                <a href="#0" className="entry__profile-pic">
+                                    <img className="avatar" src="images/avatars/user-03.jpg" alt=""/>
+                                </a>
+
+                                <ul className="entry__meta">
+                                    <li><a href="#0">Eturu Stephen</a></li>
+                                    <li>21 October, 2020</li>
+                                </ul>
+                            </div>
+                    </div> 
+                  
+                </div> 
+
+       }
+           
+       })
+
+       setsecondThirdArticle(returnData2)
+
+       let returnData3= response.data.map((r,index)=>{
+
+        let descriptionTrunc=truncateString(r.content["blocks"][0].text,120);
+        let cleanedUrl=urlCleaner(r.post_title)
+   
+        if(index>2){
+           return <div  className="col-md-4 card" id="cardBackground">
+                  <div className="entry__thumb">
+                  <img src={r.img_url} className="img-responsive center-block" style={{marginTop: "10px",height: "231px",width: "100%"}} alt=""/>
+                  </div>
+                  <div className="entry__header">
+                      
+                      <div className="entry__date ">
+                          <a id="">21st October,2020</a>
+                      </div>
+                      <h2 className="entry__title ">
+                      <a id="">
+                      <Link  to={{
+                                        pathname: cleanedUrl,
+                                        state: {
+                                          data: r
+                                        }
+                                      }}>
+                              {r.post_title}
+                      </Link>
+                      </a>
+                      
+                      </h2>
+                      
+                  </div>
+                  <div className="entry__excerpt " style={{fontSize: "1.5rem",lineHeight: 1.8,textAlign: "justify"}}>
+                      <p id="">
+                         {descriptionTrunc}
+                      </p>
+                  </div>
+                  
+                </div>
+
+        }
+           
+       })
+      setotherArticles(returnData3)
+
+
+      //  
      
 
       }).catch(function (error) {
@@ -146,66 +267,66 @@ function signUpUser(e){
   return (
   
   <div>
-         
-         <div className="col-md-3">
-         <Sidebar/>
-         </div>
-        
 
-        
-
-      <div className="col-md-9"> 
-        <NavBar/>
-      
-        <div className=" " >
-
-
-                {isLoading===true && 
+    {isLoading===true && 
                   <div className="col-md-12">
                       
-                    <img src="https://cdn.dribbble.com/users/17619/screenshots/2666659/loader.gif" style={{width:80,marginTop:80}} className="img-responsive center-block" alt="loading"/>
-
+                        <div id="preloader">
+                      <div id="loader">
+                          <div className="line-scale">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                          </div>
+                      </div>
+                      </div>
 
                   </div>
                 }
 
 
-                  {isLoading===false && 
+      {isLoading===false && 
+      <div>
 
-                    <div>
-                    <div className="col-md-9">
-                       
-                        {articles} 
-                       
-                        
-                    </div>
-                    
-                    <div className="col-md-3">
-                     <RightSidebar/>
-                        
-                    </div>
-
-                    </div>
-                    
-                  }
-
-
-                
-
-                </div>
-
+          <section className="s-pageheader s-pageheader--home">
               
+              <NavBar/>
+                      <div className="pageheader-content">
+                          <div className="container">
+                              <a> <Switchbutton/></a>
+                              <div className="featured">
+                                  {firstArticle}
+                                  <div className="featured__column featured__column--small">
 
-                  
-                      
+                                    {secondThirdArticle}
+                                  </div>  
 
-                   
-                  
-           
+                          </div>
+                        </div>
+                      </div>
+
+
+            </section>
             
-              
-      </div>
-          
+            <section className="s-content" id="downBackground">
+                      <div className="container">
+                            {otherArticles}
+                      </div>
+                  
+            </section>
+
+            <Footer/> 
+
+      </div> 
+
+      
+        
+
+      }
+         
+     
   </div>
   );
 }
