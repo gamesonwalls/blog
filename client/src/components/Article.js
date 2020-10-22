@@ -1,4 +1,4 @@
-import React,{useContext, useState,useEffect} from 'react';
+import React,{useContext, useState,useEffect,useRef} from 'react';
 import $ from "jquery";
 import axios from 'axios'
 import users from './user.json'
@@ -21,7 +21,7 @@ import  {useCount} from './context/VoteContext';
 
 import NavBar from './NavBar';
 
-
+import Footer from './Footer';
 
 function Article(props) {
 const history = useHistory()
@@ -36,11 +36,41 @@ const history = useHistory()
   console.log("data ",props.location.state['data'].content['blocks'][0].text)
   
 
+  
+  const {data} = props.location.state;
+  
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+
+  const prevAmount = usePrevious({data});
+  console.log("prevAmount",prevAmount)
+
+  useEffect(() => {
+
+    if(prevAmount===undefined){
+
+    }else{
+        if(prevAmount['data'].id !== props.location.state['data'].id) {
+
+            getAllComments()
+          }
+
+    }
+      
+    
+  }, [data])
+ 
+
   useEffect(() => {
     getAllComments()
- //translateToHtml()
    
-  }, []);
+  },[] );
 
 
   
@@ -55,9 +85,11 @@ const history = useHistory()
         if(doc.body.innerHTML===null){
             doc.body.innerHTML=' '
             document.getElementById('Article').text=''
+            // getAllComments()
         }else{
             //document.getElementById('textcontent').innerHTML=doc.body.innerHTML;
             $("#textcontent").html(doc.body.innerHTML)
+           // getAllComments()
 
         }
 
@@ -223,8 +255,9 @@ function getAllComments(){
                
             </div>
             
-
+           
       </div>
+      
   );
 }
 
