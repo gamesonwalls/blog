@@ -1,4 +1,4 @@
-import React,{useContext, useState,useEffect} from 'react';
+import React,{useContext, useState,useEffect,useRef} from 'react';
 import $ from "jquery";
 import axios from 'axios'
 import users from './user.json'
@@ -19,20 +19,87 @@ import ThemeContext from './context/ThemeContext';
 
 import  {useCount} from './context/VoteContext';
 
-function Article(props) {
+import NavBar from './NavBar';
 
-    const history = useHistory()
+import Footer from './Footer';
+
+function Article(props) {
+const history = useHistory()
+  
   const { dark } = useContext(ThemeContext);
  const {  countLike,countDisLike,fireLikes,fireDisLikes} = useCount();
+
+ const [allArticleContent,setallArticleContent]=useState(null)
 
  const [commentToDisplay,setcommentToDisplay]=useState([])
   console.log("Props from Article",props.location.state['data'])
   console.log("data ",props.location.state['data'].content['blocks'][0].text)
   
+
+  
+  const {data} = props.location.state;
+  
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+
+  const prevAmount = usePrevious({data});
+  console.log("prevAmount",prevAmount)
+
+  useEffect(() => {
+
+    if(prevAmount===undefined){
+
+    }else{
+        if(prevAmount['data'].id !== props.location.state['data'].id) {
+
+            getAllComments()
+          }
+
+    }
+      
+    
+  }, [data])
+ 
+
   useEffect(() => {
     getAllComments()
    
-  }, []);
+  },[] );
+
+
+  
+    //history.go(0)
+    let myHtmlData=  draftToHtml(props.location.state['data'].content)
+
+        console.log("myHtmlData",myHtmlData)
+
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(myHtmlData, 'text/html');
+    console.log("doc",doc)
+        if(doc.body.innerHTML===null){
+            doc.body.innerHTML=' '
+            document.getElementById('Article').text=''
+            // getAllComments()
+        }else{
+            //document.getElementById('textcontent').innerHTML=doc.body.innerHTML;
+            $("#textcontent").html(doc.body.innerHTML)
+           // getAllComments()
+
+        }
+
+
+	
+  
+
+ 
+
+
 //   var s = my;
 // var htmlObject = document.createElement('div');
 // htmlObject.innerHTML = s;
@@ -110,22 +177,30 @@ function getAllComments(){
  
     
       <div style={{backgroundColor:'#f4f3ef'}}>
-            <div className="col-md-3" >
-                 <Sidebar/>
+            <div className="col-md-12" style={{backgroundColor:'#19191b',height:200}}>
+            <NavBar/>
+            </div>
+            <div className="col-md-1" >
+               
             </div>
       
-            <div className="col-md-9 ">
-           
+            <div className="col-md-8 ">
+            
   
-                        <div className="col-md-9">
-                                    <div id="Article">
+                       
+                         <div id="Article">
+                            
                                 <h1>
                                 {props.location.state['data'].post_title}
                                 
                                 </h1>
+                                <img src={props.location.state['data'].img_url} style={{width:'100%'}}/>
                                 <div id="textcontent">
+                                       
 
-                                {props.location.state['data'].content['blocks'][0].text}
+                                 
+                         
+                                 
                                 </div>
                                 
                                 <span><button className="btn btn-default" onClick={fireLikes}><Like style={{fontSize:'3em'}}/></button>{countLike}</span> <span ><button className="btn btn-default" onClick={fireDisLikes}><DisLike style={{fontSize:'3em'}}/></button>{countDisLike}</span>
@@ -140,7 +215,7 @@ function getAllComments(){
                         </div>
 
                           <div className="col-md-12">
-                                <h4>Comments</h4>
+                                <h4 className="">Comments</h4>
 
                      
 
@@ -160,25 +235,29 @@ function getAllComments(){
                                 <div className="col-md-11 card">
                                 
                                 
-                                <textarea  class="form-control textarea" placeholder="Enter Comments here" id="commentsInfield" required style={{border:'none'}}></textarea>
+                                <textarea  class="form-control textarea" placeholder="Enter Comments here" id="commentsInfield" required style={{border:'none', height: 64}}></textarea>
 
                                 </div>
                                 <div className="col-md-1 card" style={{height:'4.5em'}}>
-                                    <button  style={{background: "none",border: "none",height:'4.5em'}}><SendIcon  style={{fontSize:'3em',marginTop: '0.4em'}} className={`icon ${!dark ? 'sendIcon' : 'sendIcon'}`} /></button>
+                                    <button  style={{background: "none",border: "none",height:'4.5em',padding:0}}><SendIcon  style={{fontSize:'3em',marginTop: '0.4em'}} className={`icon ${!dark ? 'sendIcon' : 'sendIcon'}`} /></button>
                                 </div>
                                 
                                 </form> 
                             </div>  
-                        </div>
+                     
                         
                             
-                        <div className="col-md-3">
-                            <RightSidebar/>
-                        </div>
+                        
+            </div>
+
+            <div className="col-md-3" >
+            <RightSidebar/>
+               
             </div>
             
-
+           
       </div>
+      
   );
 }
 
